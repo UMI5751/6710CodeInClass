@@ -42,9 +42,37 @@ public class MergeSort {
     }
 
     @Test
+    public void testSortShort(){
+        int[] unsorted = {16, 1, 12};
+        int[] sorted = {1, 12, 16};
+        Assertions.assertArrayEquals(sorted, mergeSort(unsorted)); //
+    }
+
+    @Test
     public void testSort(){
         int[] unsorted = {16, 1, 12, 43, 41, 25, 0};
         int[] sorted = {0, 1, 12, 16, 25, 41, 43};
+        Assertions.assertArrayEquals(sorted, mergeSort(unsorted)); //
+    }
+
+    @Test
+    public void testSortOneElement(){
+        int[] unsorted = {40};
+        int[] sorted = {40};
+        Assertions.assertArrayEquals(sorted, mergeSort(unsorted)); //
+    }
+
+    @Test
+    public void testSortEven(){
+        int[] unsorted = {16, 1, 12, 43};
+        int[] sorted = {1, 12, 16, 43};
+        Assertions.assertArrayEquals(sorted, mergeSort(unsorted)); //
+    }
+
+    @Test
+    public void testSortOdd(){
+        int[] unsorted = {16, 1, 12};
+        int[] sorted = {1, 12, 16};
         Assertions.assertArrayEquals(sorted, mergeSort(unsorted)); //
     }
 }
