@@ -24,6 +24,10 @@ public class ClassList {
         public String getUid(){
             return this.uid;
         }
+
+        public String getName(){
+            return this.name;
+        }
     }
 
     public static void main(String[] args) {
@@ -66,8 +70,25 @@ public class ClassList {
 
         Map<String, COMP1110Student> uidMap = new HashMap<>();//类似dict
         for (var student : studentArray){
-            uidMap.put(student.getUid(), student);
+            uidMap.put(student.getUid(), student);//第一个参数是key，第二个参数是value
         }
+
+        for (var student : uidMap.values()){
+            System.out.println(student);
+        }
+
+        for (var uid : uidMap.keySet()){//访问key
+            System.out.println(uid);
+        }
+
+        uidMap.remove("u2345678"); //remove掉key和对应的value
+        uidMap.put("u12345", new COMP1110Student("Mary", 23, "u12345", 5, 1, 3));//增加一个元素
+
+        Collections.sort(studentList, (s1, s2) -> s1.getName().compareTo(s2.getName()));//String只之间允许进行compare，按alphabet排序
+        //传入一个lambda表达式
+
+        
+
 
 
 
