@@ -20,6 +20,10 @@ public class ClassList {
             this.ass3 = ass3;
             this.uid = uid;
         }
+
+        public String getUid(){
+            return this.uid;
+        }
     }
 
     public static void main(String[] args) {
@@ -43,6 +47,9 @@ public class ClassList {
 
         var newArray = studentList.toArray(new COMP1110Student[studentList.size()]);
         //必须给toArray()里面传入一个想要转换的类数组的初始化实例对象（相同长度）
+        System.out.println(studentArray == newArray);//返回false，指向的不是同一个array
+        System.out.println(Arrays.equals(studentArray, newArray));//返回true，内部每一个元素指向的同一个对象
+
 
         COMP1110Student thirdStudent = studentList.get(2);
         System.out.println(thirdStudent);
@@ -51,8 +58,21 @@ public class ClassList {
         //studentList.remove(5); 可以remove某个成员
 
         Set<COMP1110Student> studentSet = new HashSet<>();
-        studentSet.add(studentList.get(0));// set内部是无序的
-        studentSet.add(studentList.get(1));
+        studentSet.add(studentList.get(0));// set内部是无序的，同样的成员只能添加一次
+        boolean added = studentSet.add(studentList.get(1));//会返回是否添加成功了，返回true
+        added = studentSet.add(studentList.get(1));//会返回false，因为已经有了同样的成员
+
+        boolean isBobinSet = studentSet.contains(studentList.get(2));//返回false，无法通过这种方式判断是够含有Bob
+
+        Map<String, COMP1110Student> uidMap = new HashMap<>();//类似dict
+        for (var student : studentArray){
+            uidMap.put(student.getUid(), student);
+        }
+
+
+
+
+
 
 
 
