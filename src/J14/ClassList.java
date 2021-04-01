@@ -1,5 +1,7 @@
 package J14;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
 public class ClassList {
@@ -28,6 +30,12 @@ public class ClassList {
         public String getName(){
             return this.name;
         }
+
+
+        public int compareTo(COMP1110Student o){
+            return this.getName().compareTo(o.getName());
+        }
+
     }
 
     public static void main(String[] args) {
@@ -86,8 +94,12 @@ public class ClassList {
 
         Collections.sort(studentList, (s1, s2) -> s1.getName().compareTo(s2.getName()));//String只之间允许进行compare，按alphabet排序
         //传入一个lambda表达式
+        //也可以在COMP1110Student类中override compareTo的方法，sort会直接调用
+        //compareTo是String的默认提供方法，可以override
+        //Collections.sort(studentList);
 
-        
+
+
 
 
 
