@@ -1,10 +1,15 @@
 package J14;
 
+import org.junit.jupiter.api.Test;
+
 import java.awt.desktop.AppReopenedEvent;
 import java.awt.desktop.SystemEventListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Boggle {
     static String[] dice= {"AJBBOO", "AFFPSK", "ANEAGE", "APSHCO", "FDEJHG", "ONFDJJ", "HSOWHY", "KSOEYC", "IWHDNC", "JDUYHS", "OSJHSN", "LSOSPJ", "JDUDHD", "KSLDOE", "KHYTDS", "KSIOPE"};//不全总共16个string，还有很多字母,代表16个dice，每面6个字母
@@ -55,13 +60,16 @@ public class Boggle {
     }
 
     void solve(){
-        //start at a particular die
-        int start = 0;
-        boolean[] alreadyVisited = new boolean[dice.length];
-        alreadyVisited[0] = true;
-        String prefix = String.valueOf(boggleCharacters[start]);
+        for (int i = 0; i < dice.length; i++) {
+            int start = i;
+            boolean[] alreadyVisited = new boolean[dice.length];
+            alreadyVisited[start] = true;
+            String prefix = String.valueOf(boggleCharacters[start]);
 
-        findWords(0, alreadyVisited, prefix);
+            findWords(start, alreadyVisited, prefix);
+        }
+        //start at a particular die
+
         //for each neighbouring die
         //move to neighbour
 
@@ -71,13 +79,13 @@ public class Boggle {
         for (Integer neighbour : neighbours.get(start)){
             if (!alreadyVisited[neighbour]){
                 //recur
-                prefix += boggleCharacters[neighbour];
-                System.out.println(prefix);
-                if (dictionary.contains(prefix)){
-                    System.out.println(prefix);
+                String candidate = prefix + boggleCharacters[neighbour];
+                if (candidate.length() >=3 && dictionary.contains(candidate)){
+                    System.out.println(candidate);
                 }
                 alreadyVisited[neighbour] = true;
-                findWords(neighbour, alreadyVisited, prefix);
+                findWords(neighbour, alreadyVisited, candidate);
+                alreadyVisited[neighbour] = false;
             }
         }
     }
@@ -123,4 +131,12 @@ public class Boggle {
         System.out.println(result.toString());
         return boggleDice;
     }
+
+    @Test
+    public void testDictionary(){
+        Boggle boggle  = new Boggle();
+        assertTrue(boggle.dictionary.contains("THIN"));
+        assertFalse(boggle.dictionary.contains("sfsdafdsa"));
+    }
+
 }
